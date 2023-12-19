@@ -6,10 +6,11 @@ public class BluejackDemo {
         String[] humandeck=new String[10];
         String[] computerdeck=new String[10];
         String[] signedcards=new String[10];
+        String[] signs=new String[2];
         int num=0;
 
         Cards bjcards=new Cards(cardNums,colors,gamedeck,num);
-        Decks bjdecks=new Decks(humandeck,computerdeck,bjcards,signedcards,colors);
+        Decks bjdecks=new Decks(humandeck,computerdeck,bjcards,signedcards,colors,signs);
 
         System.out.println("the deck :"+bjcards.deck());
         System.out.println("shuffled deck:"+bjcards.shuffle(gamedeck));
