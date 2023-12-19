@@ -8,14 +8,15 @@ public class Decks {
    public Decks(String[] hd, String[] cd, Cards gameCards){
        humanDeck=hd;
        computerDeck=cd;
-       gameDeck=gameCards.getGAMEDECK();
+       gameDeck=gameCards.getGameDeck();
    }
 
-    public void setHUMANDECK(String[] hd) {hd=this.humanDeck;}
-    public void setCOMPUTERDECK(String[] cd) {cd=this.computerDeck;}
+    public void setHumanDeck(String[] hd) {hd=this.humanDeck;}
+    public void setComputerDeck(String[] cd) {cd=this.computerDeck;}
     public void setGD(String[] gameCards) {gameCards=this.gameDeck;}
-    public String[] getHUMANDECK() {return humanDeck;}
-    public String[] getCOMPUTERDECK() {return computerDeck;}
+    public String[] getHumanDeck() {return humanDeck;}
+    public String[] getComputerDeck() {return computerDeck;}
+    public String[] getGD() {return gameDeck;}
 
     public String[] computerDeck(String[] computerDeck){
        for(int i=0;i<5;i++){
@@ -26,9 +27,9 @@ public class Decks {
     }
 
     public String[] humanDeck(String[] humanDeck){
+        int n=gameDeck.length;
        for (int i=0;i<5;i++){
-         int n=gameDeck.length;
-            humanDeck[i]=gameDeck[n];
+            humanDeck[i]=gameDeck[n-1];
             n--;
        }
         System.out.println(Arrays.toString(humanDeck));

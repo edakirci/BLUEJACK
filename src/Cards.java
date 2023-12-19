@@ -15,15 +15,15 @@ public class Cards {
         n = num;
     }
 
-    public void setCARDNUMS(int[] cd) {cd = cardNums;}
-    public void setCOLORS(String[] c) {c = colors;}
-    public void setCAMEDECK(String[] gd) {gd = gameDeck;}
-    public void setNUM(int n) {n = num;}
+    public void setCardNums(int[] cd) {cd = cardNums;}
+    public void setColors(String[] c) {c = colors;}
+    public void setGameDeck(String[] gd) {gd = gameDeck;}
+    public void setNum(int n) {n = num;}
 
-    public int[] getCARDNUMS() {return cardNums;}
-    public String[] getCOLORS() {return colors;}
-    public String[] getGAMEDECK() {return gameDeck;}
-    public int getNUM() {return num;}
+    public int[] getCardNums() {return cardNums;}
+    public String[] getColors() {return colors;}
+    public String[] getGameDeck() {return gameDeck;}
+    public int getNum() {return num;}
 
     public String[] deck() {
         for (int i = 0; i < 4; i++) {
