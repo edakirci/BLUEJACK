@@ -2,7 +2,7 @@ public class BluejackDemo {
     public static void main(String[] args){
         int[] cardNums={1,2,3,4,5,6,7,8,9,10};
         String[] colors={"blue","green","red","yellow"};
-        String[] gamedeck=null;
+        String[] gamedeck=new String[10];
         String[] humandeck=new String[10];
         String[] computerdeck=new String[10];
         String[] signedcards=new String[10];

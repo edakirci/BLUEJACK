@@ -28,7 +28,7 @@ public class Cards {
     public String[] deck() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < cardNums.length; j++) {
-                gameDeck[num] = colors[i] + " " + cardNums[j];
+                gameDeck[num] = colors[i] + " " + "+" + cardNums[j];
                 num++;
             }
         }
