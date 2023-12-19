@@ -48,6 +48,4 @@ public class Cards {
             System.out.println(Arrays.toString(arr));
         return arr;
     }
-
-
 }
