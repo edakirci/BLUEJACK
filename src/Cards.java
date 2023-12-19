@@ -15,39 +15,17 @@ public class Cards {
         n = num;
     }
 
-    public void setCARDNUMS(int[] cd) {
-        cd = cardNums;
-    }
+    public void setCARDNUMS(int[] cd) {cd = cardNums;}
+    public void setCOLORS(String[] c) {c = colors;}
+    public void setCAMEDECK(String[] gd) {gd = gameDeck;}
+    public void setNUM(int n) {n = num;}
 
-    public void setCOLORS(String[] c) {
-        c = colors;
-    }
+    public int[] getCARDNUMS() {return cardNums;}
+    public String[] getCOLORS() {return colors;}
+    public String[] getGAMEDECK() {return gameDeck;}
+    public int getNUM() {return num;}
 
-    public void setCAMEDECK(String[] gd) {
-        gd = gameDeck;
-    }
-
-    public void setNUM(int n) {
-        n = num;
-    }
-
-    public int[] getCARDNUMS() {
-        return cardNums;
-    }
-
-    public String[] getCOLORS() {
-        return colors;
-    }
-
-    public String[] getGAMEDECK() {
-        return gameDeck;
-    }
-
-    public int getNUM() {
-        return num;
-    }
-
-    public String[] Deck() {
+    public String[] deck() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < cardNums.length; j++) {
                 gameDeck[num] = colors[i] + " " + cardNums[j];
@@ -57,15 +35,19 @@ public class Cards {
         return gameDeck;
     }
 
-    public String[] Shuffle(String[] arr, int a) {
-        arr = gameDeck;
-        a = arr.length;
-        for (int i=a-1;i>0;i--) {
-            int j = rd.nextInt(i + 1);
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+    public String[] shuffle(String[] arr) {
+        arr=gameDeck;
+        int index;
+        String temp=null;
+            for (int i= arr.length-1;i>0;i--) {
+            index=rd.nextInt(i+1);
+            temp=arr[index];
+            arr[index]=arr[i];
+            arr[i]=temp;
         }
-        return Arrays.toString(arr);
+            System.out.println(Arrays.toString(arr));
+        return arr;
     }
+
+
 }
