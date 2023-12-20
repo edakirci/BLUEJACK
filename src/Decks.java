@@ -8,7 +8,6 @@ public class Decks {
     private String[] signedCards = new String[10];
     private String[] colors = {"blue", "green", "red", "yellow"};
     private String[] signs = {"+", "-"};
-    private int[] percent = {1, 1, 1, 1, 2};
     private String flipCard = "+/-";
     private String doubleCard = "x2";
 
@@ -40,7 +39,7 @@ public class Decks {
         for (int i = 0; i < 10; i++) {
             int index1 = rd.nextInt(colors.length);
             int index2 = rd.nextInt(signs.length);
-            signedCards[i] = colors[index1] + " " + rd.nextInt(6) + 1 + " " + signs[index2];
+            signedCards[i] = colors[index1] + " " +signs[index2] + rd.nextInt(6) + 1;
         }
         return signedCards;
     }
@@ -54,17 +53,25 @@ public class Decks {
             computerDeck[index] = signedCards[i];
             index++;
         }
-        for (int i = 0; i < 2; i++) {
-            int temp = rd.nextInt(percent.length);
-            int j = 6;
 
-            if (percent[temp] == 1) {
+
+        int temp=rd.nextInt(100)+1;
+        int j=6;
+            if (temp>=1&&temp<=80) {  //these if statement represents the 80 percent of chance to get two signed cards
                 computerDeck[j + 2] = signedCards[j];
-                j++;
-            } else {
-                computerDeck[j + 2] = doubleCard;
+                computerDeck[j + 3] = signedCards[j+1];
+
+            } else if(temp>=81&&temp<=88){ //these if statement represents the 8 percent of chance to get one signed card and one flip card
+                computerDeck[j + 2] = signedCards[j];
                 computerDeck[j + 3] = flipCard;
-            }
+
+            } else if(temp>=89&&temp<=96){ //these if statement represents the 8 percent of chance to get one signed card and one double card
+                computerDeck[j + 2] = signedCards[j];
+                computerDeck[j + 3] = doubleCard;
+
+            } else if(temp>=97&&temp<=100){ //these if statement represents the 4 percent of chance to get one flip card and one double card
+                computerDeck[j + 2] = flipCard;
+                computerDeck[j + 3] = doubleCard;
         }
         System.out.println(Arrays.toString(computerDeck));
         return computerDeck;
@@ -81,17 +88,25 @@ public class Decks {
             humanDeck[index] = signedCards[i];
             index++;
         }
-        for (int i = 0; i < 2; i++) {
-            int temp = rd.nextInt(percent.length);
-            int j = 8;
 
-            if (percent[temp] == 1) {
-                humanDeck[j] = signedCards[j];
-                j++;
-            } else {
-                humanDeck[j] = flipCard;
-                humanDeck[j + 1] = doubleCard;
-            }
+
+        int temp=rd.nextInt(100)+1;
+        int j=6;
+        if (temp>=1&&temp<=80) {  //these if statement represents the 80 percent of chance to get two signed cards
+            humanDeck[j + 2] = signedCards[j+2];
+            humanDeck[j + 3] = signedCards[j+3];
+
+        } else if(temp>=81&&temp<=88){ //these if statement represents the 8 percent of chance to get one signed card and one flip card
+            humanDeck[j + 2] = signedCards[j+2];
+            humanDeck[j + 3] = flipCard;
+
+        } else if(temp>=89&&temp<=96){ //these if statement represents the 8 percent of chance to get one signed card and one double card
+            humanDeck[j + 2] = signedCards[j+2];
+            computerDeck[j + 3] = doubleCard;
+
+        } else if(temp>=97&&temp<=100){ //these if statement represents the 4 percent of chance to get one flip card and one double card
+            humanDeck[j + 2] = flipCard;
+            humanDeck[j + 3] = doubleCard;
         }
         System.out.println(Arrays.toString(humanDeck));
         return humanDeck;
