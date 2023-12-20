@@ -6,7 +6,7 @@ public class BluejackDemo {
         String[] humandeck=new String[10];
         String[] computerdeck=new String[10];
         String[] signedcards=new String[10];
-        String[] signs=new String[2];
+        String[] signs= {"+","-"};
         int num=0;
 
         Cards bjcards=new Cards(cardNums,colors,gamedeck,num);
@@ -14,6 +14,7 @@ public class BluejackDemo {
 
         System.out.println("the deck :"+bjcards.deck());
         System.out.println("shuffled deck:"+bjcards.shuffle(gamedeck));
+        System.out.println("signed cards:"+bjdecks.signedDeck(signedcards));
         System.out.println("the human deck:"+bjdecks.humanDeck(humandeck));
         System.out.println("the computer deck:"+bjdecks.computerDeck(computerdeck));
     }
