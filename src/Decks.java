@@ -98,15 +98,15 @@ public class Decks {
             humanDeck[j + 2] = signedCards[j + 2];
             humanDeck[j + 3] = signedCards[j + 3];
 
-        } else if (temp >= 81 && temp <= 88) { //these if statement represents the 8 percent of chance to get one signed card and one flip card
+        } else if (temp >= 81 && temp <= 88) { //these else if statement represents the 8 percent of chance to get one signed card and one flip card
             humanDeck[j + 2] = signedCards[j + 2];
             humanDeck[j + 3] = flipCard;
 
-        } else if (temp >= 89 && temp <= 96) { //these if statement represents the 8 percent of chance to get one signed card and one double card
+        } else if (temp >= 89 && temp <= 96) { //these else if statement represents the 8 percent of chance to get one signed card and one double card
             humanDeck[j + 2] = signedCards[j + 2];
             computerDeck[j + 3] = doubleCard;
 
-        } else if (temp >= 97 && temp <= 100) { //these if statement represents the 4 percent of chance to get one flip card and one double card
+        } else if (temp >= 97 && temp <= 100) { //these else if statement represents the 4 percent of chance to get one flip card and one double card
             humanDeck[j + 2] = flipCard;
             humanDeck[j + 3] = doubleCard;
         }
