@@ -22,16 +22,18 @@ public class BluejackDemo {
         System.out.println("the computer deck:"+bjdecks.computerDeck(computerdeck));
 
       //this is the point that my game starts
-        String[] computerHand=new String[9];
-        String[] computerBoard=new String[4];
-        String[] playerHand=new String[9];
-        String[] playerBoard=new String[4];
+        String[] computerHand=new String[4];
+        String[] computerBoard=new String[9];
+        String[] playerHand=new String[4];
+        String[] playerBoard=new String[9];
 
-        int bluejackScore=0;
-        int normalScore=0;
+        int bjScorePlayer=0;
+        int bjScoreComputer=0;
+        int normalScorePlayer=0;
+        int normalScoreComputer=0;
 
 
-       while(bluejackScore!=1||normalScore!=3) {
+        while(bjScorePlayer!=1 && bjScoreComputer!=1 && normalScorePlayer!=3 && normalScoreComputer!=3) {
 
            for (int i = 0; i < 4; i++) {
                computerHand[i] = computerdeck[i];
@@ -41,8 +43,13 @@ public class BluejackDemo {
                playerHand[i] = humandeck[i];
            }
 
-           //4 skor mavi ve normal score while;
+
        }
+        if(bjScorePlayer==1||normalScorePlayer==3) {
+            System.out.println("Congrats! You won the game");
+        } else if(bjScoreComputer==1|| normalScoreComputer==3){
+            System.out.println("The CPU won this game");
+        }
     }
 
 }
