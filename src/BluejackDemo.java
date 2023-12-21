@@ -21,27 +21,28 @@ public class BluejackDemo {
         System.out.println("the human deck:"+bjdecks.humanDeck(humandeck));
         System.out.println("the computer deck:"+bjdecks.computerDeck(computerdeck));
 
-      //this is the point that my game stars
+      //this is the point that my game starts
         String[] computerHand=new String[9];
         String[] computerBoard=new String[4];
         String[] playerHand=new String[9];
         String[] playerBoard=new String[4];
 
-
-        for(int i=0;i<4;i++){
-            int index=rd.nextInt(computerHand.length); //ayni index birden fazla kez gelebilir
-            computerHand[i]=computerdeck[index];
-        }
-        for(int i=0;i<4;i++){
-            int index=rd.nextInt(playerHand.length); //ayni index birden fazla kez gelebilir
-            playerHand[i]=humandeck[index];
-        }
-
-       
+        int bluejackScore=0;
+        int normalScore=0;
 
 
+       while(bluejackScore!=1||normalScore!=3) {
 
+           for (int i = 0; i < 4; i++) {
+               computerHand[i] = computerdeck[i];
+           }
 
+           for (int i = 0; i < 4; i++) {
+               playerHand[i] = humandeck[i];
+           }
+
+           //4 skor mavi ve normal score while;
+       }
     }
 
 }

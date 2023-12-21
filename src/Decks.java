@@ -22,24 +22,52 @@ public class Decks {
         signs = sn;
     }
 
-    public void setHumanDeck(String[] hd) {hd = this.humanDeck;}
-    public void setComputerDeck(String[] cd) {cd = this.computerDeck;}
-    public void setGameCards(String[] gameCards) {gameCards = this.gameDeck;}
-    public void setSignedCards(String[] sc) {sc = this.signedCards;}
-    public void setSigns(String[] sn) {sn = this.signs;}
+    public void setHumanDeck(String[] hd) {
+        hd = this.humanDeck;
+    }
 
-    public String[] getHumanDeck() {return humanDeck;}
-    public String[] getComputerDeck() {return computerDeck;}
-    public String[] getGameCards() {return gameDeck;}
-    public String[] getSignedCards() {return signedCards;}
-    public String[] getSigns() {return signs;}
+    public void setComputerDeck(String[] cd) {
+        cd = this.computerDeck;
+    }
+
+    public void setGameCards(String[] gameCards) {
+        gameCards = this.gameDeck;
+    }
+
+    public void setSignedCards(String[] sc) {
+        sc = this.signedCards;
+    }
+
+    public void setSigns(String[] sn) {
+        sn = this.signs;
+    }
+
+    public String[] getHumanDeck() {
+        return humanDeck;
+    }
+
+    public String[] getComputerDeck() {
+        return computerDeck;
+    }
+
+    public String[] getGameCards() {
+        return gameDeck;
+    }
+
+    public String[] getSignedCards() {
+        return signedCards;
+    }
+
+    public String[] getSigns() {
+        return signs;
+    }
 
 
     public String[] signedDeck(String[] signedCards) {
         for (int i = 0; i < 10; i++) {
             int index1 = rd.nextInt(colors.length);
             int index2 = rd.nextInt(signs.length);
-            int number=rd.nextInt(6)+1;
+            int number = rd.nextInt(6) + 1;
             signedCards[i] = colors[index1] + " " + signs[index2] + number;
         }
         System.out.println(Arrays.toString(signedCards));
@@ -112,6 +140,32 @@ public class Decks {
         }
         System.out.println(Arrays.toString(humanDeck));
         return humanDeck;
+    }
+
+    public String[] computerShuffle(String[] array) {
+        array = computerDeck;
+        int index;
+        String temp = null;
+        for (int i = array.length - 1; i > 0; i--) {
+            index = rd.nextInt(i + 1);
+            temp = array[index];
+            array[index] = array[i];
+            array[i] = temp;
+        }
+        return array;
+    }
+
+    public String[] shuffle(String[] array) {
+        array = humanDeck;
+        int index;
+        String temp = null;
+        for (int i = array.length - 1; i > 0; i--) {
+            index = rd.nextInt(i + 1);
+            temp = array[index];
+            array[index] = array[i];
+            array[i] = temp;
+        }
+        return array;
     }
 }
 
