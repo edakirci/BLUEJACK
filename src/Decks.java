@@ -70,7 +70,6 @@ public class Decks {
             int number = rd.nextInt(6) + 1;
             signedCards[i] = colors[index1] + " " + signs[index2] + number;
         }
-        System.out.println(Arrays.toString(signedCards));
         return signedCards;
     }
 
@@ -103,7 +102,6 @@ public class Decks {
             computerDeck[j + 2] = flipCard;
             computerDeck[j + 3] = doubleCard;
         }
-        System.out.println(Arrays.toString(computerDeck));
         return computerDeck;
     }
 
@@ -138,7 +136,6 @@ public class Decks {
             humanDeck[j + 2] = flipCard;
             humanDeck[j + 3] = doubleCard;
         }
-        System.out.println(Arrays.toString(humanDeck));
         return humanDeck;
     }
 

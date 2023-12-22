@@ -18,11 +18,11 @@ public class BluejackDemo {
         Random rd = new Random();
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("the deck :" + bjcards.deck());
-        System.out.println("shuffled deck:" + bjcards.shuffle(gamedeck));
-        System.out.println("signed cards:" + bjdecks.signedDeck(signedcards));
-        System.out.println("the human deck:" + bjdecks.humanDeck(humandeck));
-        System.out.println("the computer deck:" + bjdecks.computerDeck(computerdeck));
+        bjcards.deck();
+        bjcards.shuffle(gamedeck);
+        bjdecks.signedDeck(signedcards);
+        bjdecks.humanDeck(humandeck);
+        bjdecks.computerDeck(computerdeck);
 
         //this is the point that my game starts
         String[] computerHand = new String[4];
@@ -48,12 +48,20 @@ public class BluejackDemo {
 
         while (bjScorePlayer != 1 && bjScoreComputer != 1 && normalScorePlayer != 3 && normalScoreComputer != 3 && playerSum <= 20 && computerSum <= 20) {
 
-            System.out.println("computer hand: " + "XXXX");
+            System.out.println("computer hand: " + "X X X X");
+            System.out.println("computer board: " + Arrays.toString(computerBoard));
+            System.out.println("player board: " + Arrays.toString(playerBoard));
             System.out.println("player hand: " + Arrays.toString(playerHand));
 
-            System.out.println("Player's turn");
+            System.out.println("Player's turn!");
             drawToBoard(playerBoard, gamedeck, 0, consIndex);
             consIndex++;
+
+            System.out.println("computer hand: " + "X X X X");
+            System.out.println("computer board: " + Arrays.toString(computerBoard));
+            System.out.println("player board: " + Arrays.toString(playerBoard));
+            System.out.println("player hand: " + Arrays.toString(playerHand));
+
             System.out.println("What do you want to do: 1. Stand or 2.Play a card from your hand or 3.End your turn");
             int choice = sc.nextInt();
             while (choice != 1 && choice != 2 && choice != 3) {
@@ -85,9 +93,25 @@ public class BluejackDemo {
                     System.out.println("Player chose to end their turn.");
                     break;
             }
+
             System.out.println("It's computer's turn!");
-
-
+            while (calculateBoardSum(computerBoard) < 20) {
+                String suitableCard = findSuitableCard(computerHand, calculateBoardSum(computerBoard), computerBoard);
+                if (suitableCard != null) {
+                    drawToBoard(computerBoard, computerHand, indexToPick, 0);
+                    System.out.println("Computer played: " + suitableCard+" and stand");
+                } else {
+                    System.out.println("Computer chose to end its turn.");
+                    break;
+                }
+            }
+            if (playerSum > 20) {
+                System.out.println("Bust! You lost the set");
+                break;
+            } else if (computerSum > 20) {
+                System.out.println("Bust! The CPU lost the set");
+                break;
+            }
         }
 
 
@@ -150,4 +174,26 @@ public class BluejackDemo {
         }
         return sum;
     }
+
+    public static String findSuitableCard(String[] hand, int targetSum, String[] board) {
+        int maxDifference = Integer.MAX_VALUE;
+        String bestCard = null;
+
+        for (String card : hand) {
+            if (card != null) {
+                String[] parts = card.split(" ");
+                int cardValue = Integer.parseInt(parts[parts.length - 1]);
+                int currentSum = calculateBoardSum(new String[]{card}) + calculateBoardSum(board);
+                int difference = targetSum - currentSum;
+
+
+                if (difference >= 0 && difference < maxDifference) {
+                    maxDifference = difference;
+                    bestCard = card;
+                }
+            }
+        }
+        return bestCard;
+    }
 }
+
