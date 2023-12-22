@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Arrays;
+
 public class Cards {
     Random rd = new Random();
 
@@ -15,15 +16,37 @@ public class Cards {
         n = num;
     }
 
-    public void setCardNums(int[] cd) {cd = cardNums;}
-    public void setColors(String[] c) {c = colors;}
-    public void setGameDeck(String[] gd) {gd = gameDeck;}
-    public void setNum(int n) {n = num;}
+    public void setCardNums(int[] cd) {
+        cd = cardNums;
+    }
 
-    public int[] getCardNums() {return cardNums;}
-    public String[] getColors() {return colors;}
-    public String[] getGameDeck() {return gameDeck;}
-    public int getNum() {return num;}
+    public void setColors(String[] c) {
+        c = colors;
+    }
+
+    public void setGameDeck(String[] gd) {
+        gd = gameDeck;
+    }
+
+    public void setNum(int n) {
+        n = num;
+    }
+
+    public int[] getCardNums() {
+        return cardNums;
+    }
+
+    public String[] getColors() {
+        return colors;
+    }
+
+    public String[] getGameDeck() {
+        return gameDeck;
+    }
+
+    public int getNum() {
+        return num;
+    }
 
     public String[] deck() {
         for (int i = 0; i < 4; i++) {
@@ -36,16 +59,16 @@ public class Cards {
     }
 
     public String[] shuffle(String[] arr) {
-        arr=gameDeck;
+        arr = gameDeck;
         int index;
-        String temp=null;
-            for (int i= arr.length-1;i>0;i--) {
-            index=rd.nextInt(i+1);
-            temp=arr[index];
-            arr[index]=arr[i];
-            arr[i]=temp;
+        String temp = null;
+        for (int i = arr.length - 1; i > 0; i--) {
+            index = rd.nextInt(i + 1);
+            temp = arr[index];
+            arr[index] = arr[i];
+            arr[i] = temp;
         }
-            System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(arr));
         return arr;
     }
 }
