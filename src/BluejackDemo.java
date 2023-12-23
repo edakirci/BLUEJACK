@@ -56,7 +56,7 @@ public class BluejackDemo {
             System.out.println("player hand: " + Arrays.toString(playerHand));
 
             System.out.println("Player's turn! You picked a card from game deck.");
-            drawToBoard(playerBoard, gamedeck, 0, consIndex);
+            drawToBoard(playerBoard, bjcards.getGameDeck(), 0, consIndex);
             System.out.println("You drew:" ); //TODO
             consIndex++;
 
@@ -66,10 +66,10 @@ public class BluejackDemo {
             System.out.println("player hand: " + Arrays.toString(playerHand));
 
             System.out.println("What do you want to do: 1. Stand or 2.Play a card from your hand or 3.End your turn");
-            int choice = sc.nextInt();
+            int choice = getIntInput(sc);
             while (choice != 1 && choice != 2 && choice != 3) {
                 System.out.println("Your choice is invalid. Please try again");
-                choice = sc.nextInt();
+                choice = getIntInput(sc);
             }
             switch (choice) {
                 case 1:
@@ -84,7 +84,7 @@ public class BluejackDemo {
                     System.out.println("Player chose to play a card from their hand.");
                     System.out.println("Your hand: " + Arrays.toString(playerHand));
                     System.out.println("Enter the index of the card you want to play: ");
-                    int cardIndex = sc.nextInt();
+                    int cardIndex = getIntInput(sc);
                     while (cardIndex < 0 || cardIndex >= playerHand.length || playerHand[cardIndex] == null) {
                         System.out.println("Invalid card index. Please try again: ");
                         cardIndex = sc.nextInt();
@@ -103,13 +103,16 @@ public class BluejackDemo {
                 if (suitableCard != null) {
                     drawToBoard(computerBoard, computerHand, indexToPick, 0);
                     System.out.println("Computer played: " + suitableCard + " and stand");
+                }else if(calculateBoardSum(computerBoard)>20){
+                    System.out.println("Computer busts!");
+                    break;
                 } else {
+                    drawToBoard(computerBoard, bjcards.getGameDeck(), 0, consIndex);
+                    System.out.println("Computer drew:"); //TODO add the card
                     System.out.println("Computer picked a card from game deck and chose to end its turn.");
                     break;
                 }
             }
-
-
         }
 
 
@@ -130,7 +133,7 @@ public class BluejackDemo {
                 System.exit(consIndex);
             }
             String drawnCard = "";
-            if (board.length < 9 && deck.length > 0) {
+            if (board.length <= 9 && deck.length > 0) {
                 drawnCard = deck[consIndex];
 
                 for (int i = 0; i < board.length; i++) {
@@ -212,6 +215,18 @@ public class BluejackDemo {
                 normalScoreComputer++;
             } else {
                 System.out.println("This set is a tie!");
+            }
+        }
+    }
+    public static int getIntInput(Scanner sc) {
+        while (true) {
+            if (sc.hasNextInt()) {
+                int input = sc.nextInt();
+                sc.nextLine();
+                return input;
+            } else {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                sc.nextLine();
             }
         }
     }
