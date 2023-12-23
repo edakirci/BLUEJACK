@@ -1,4 +1,6 @@
 import java.util.*;
+import java.io.*;
+import java.nio.file.Paths;
 
 public class BluejackDemo {
     public static void main(String[] args) {
@@ -99,7 +101,7 @@ public class BluejackDemo {
                 String suitableCard = findSuitableCard(computerHand, calculateBoardSum(computerBoard), computerBoard);
                 if (suitableCard != null) {
                     drawToBoard(computerBoard, computerHand, indexToPick, 0);
-                    System.out.println("Computer played: " + suitableCard+" and stand");
+                    System.out.println("Computer played: " + suitableCard + " and stand");
                 } else {
                     System.out.println("Computer chose to end its turn.");
                     break;
@@ -115,12 +117,14 @@ public class BluejackDemo {
         }
 
 
-        if (bjScorePlayer == 1 || normalScorePlayer == 3) {
-            System.out.println("Congrats! You won the game");
-        } else if (bjScoreComputer == 1 || normalScoreComputer == 3) {
-            System.out.println("The CPU won this game");
-        }
+        winner(playerSum, computerSum, bjScoreComputer, bjScorePlayer);
 
+        GameHistory[] gameHistory = new GameHistory[MAX_HISTORY_SIZE];
+        int historyIndex = 0;
+        winner(playerSum, computerSum, bjScoreComputer, bjScorePlayer);
+        GameHistory currentGame = new GameHistory("Player", "Computer", (playerSum > computerSum) ? "Player" : "Computer");
+        gameHistory[historyIndex] = currentGame;
+        historyIndex = (historyIndex + 1) % MAX_HISTORY_SIZE;
     }
 
     public static void drawToBoard(String[] board, String[] deck, int indexToPick, int consIndex) {
@@ -195,5 +199,40 @@ public class BluejackDemo {
         }
         return bestCard;
     }
+
+    private static void winner(int playerSum, int computerSum, int bjScoreComputer, int bjScorePlayer) {
+        if (playerSum > 20) {
+            System.out.println("Player busts! Computer wins!");
+            bjScoreComputer = 1;
+        } else if (computerSum > 20) {
+            System.out.println("Computer busts! Player wins!");
+            bjScorePlayer = 1;
+        } else {
+            if ((20 - playerSum) < (20 - computerSum)) {
+                System.out.println("Player wins!");
+                bjScorePlayer = 1;
+            } else if ((20 - playerSum) > (20 - computerSum)) {
+                System.out.println("Computer wins!");
+                bjScoreComputer = 1;
+            } else {
+                System.out.println("It's a tie!");
+            }
+        }
+    }
+
+    private static void saveGameHistory(GameHistory[] gameHistory) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("game_history.txt"))) {
+            for (int i = 0; i < MAX_HISTORY_SIZE; i++) {
+                if (gameHistory[i] != null) {
+                    writer.write(gameHistory[i].toString());
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static int MAX_HISTORY_SIZE = 10;
 }
 
