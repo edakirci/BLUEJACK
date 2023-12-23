@@ -55,8 +55,9 @@ public class BluejackDemo {
             System.out.println("player board: " + Arrays.toString(playerBoard));
             System.out.println("player hand: " + Arrays.toString(playerHand));
 
-            System.out.println("Player's turn!");
+            System.out.println("Player's turn! You picked a card from game deck.");
             drawToBoard(playerBoard, gamedeck, 0, consIndex);
+            System.out.println("You drew:" ); //TODO
             consIndex++;
 
             System.out.println("computer hand: " + "X X X X");
@@ -103,25 +104,20 @@ public class BluejackDemo {
                     drawToBoard(computerBoard, computerHand, indexToPick, 0);
                     System.out.println("Computer played: " + suitableCard + " and stand");
                 } else {
-                    System.out.println("Computer chose to end its turn.");
+                    System.out.println("Computer picked a card from game deck and chose to end its turn.");
                     break;
                 }
             }
-            if (playerSum > 20) {
-                System.out.println("Bust! You lost the set");
-                break;
-            } else if (computerSum > 20) {
-                System.out.println("Bust! The CPU lost the set");
-                break;
-            }
+
+
         }
 
 
-        winner(playerSum, computerSum, bjScoreComputer, bjScorePlayer);
+        winner(playerSum, computerSum, bjScorePlayer,bjScoreComputer,normalScorePlayer, normalScoreComputer);
 
         GameHistory[] gameHistory = new GameHistory[MAX_HISTORY_SIZE];
         int historyIndex = 0;
-        winner(playerSum, computerSum, bjScoreComputer, bjScorePlayer);
+        winner(playerSum, computerSum, bjScorePlayer,bjScoreComputer,normalScorePlayer, normalScoreComputer);
         GameHistory currentGame = new GameHistory("Player", "Computer", (playerSum > computerSum) ? "Player" : "Computer");
         gameHistory[historyIndex] = currentGame;
         historyIndex = (historyIndex + 1) % MAX_HISTORY_SIZE;
@@ -200,22 +196,22 @@ public class BluejackDemo {
         return bestCard;
     }
 
-    private static void winner(int playerSum, int computerSum, int bjScoreComputer, int bjScorePlayer) {
+    private static void winner(int playerSum, int computerSum, int bjScorePlayer, int bjScoreComputer,int normalScorePlayer, int normalScoreComputer) {
         if (playerSum > 20) {
-            System.out.println("Player busts! Computer wins!");
-            bjScoreComputer = 1;
+            System.out.println("Player busts! Computer wins this set!");
+            normalScoreComputer++;
         } else if (computerSum > 20) {
-            System.out.println("Computer busts! Player wins!");
-            bjScorePlayer = 1;
+            System.out.println("Computer busts! Player wins this set!");
+            normalScorePlayer++;
         } else {
             if ((20 - playerSum) < (20 - computerSum)) {
-                System.out.println("Player wins!");
-                bjScorePlayer = 1;
+                System.out.println("Player wins this set!");
+                normalScorePlayer++;
             } else if ((20 - playerSum) > (20 - computerSum)) {
                 System.out.println("Computer wins!");
-                bjScoreComputer = 1;
+                normalScoreComputer++;
             } else {
-                System.out.println("It's a tie!");
+                System.out.println("This set is a tie!");
             }
         }
     }

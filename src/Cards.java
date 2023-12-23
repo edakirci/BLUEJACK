@@ -1,5 +1,4 @@
-import java.util.Random;
-import java.util.Arrays;
+import java.util.*;
 
 public class Cards {
     Random rd = new Random();
