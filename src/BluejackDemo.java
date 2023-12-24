@@ -6,11 +6,12 @@ public class BluejackDemo {
     public static void main(String[] args) {
         int[] cardNums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         String[] colors = {"blue", "green", "red", "yellow"};
-        String[] gamedeck = new String[10];
+        String[] gamedeck = new String[40];
         String[] humandeck = new String[10];
         String[] computerdeck = new String[10];
         String[] signedcards = new String[10];
         String[] signs = {"+", "-"};
+        boolean continueGame = true;
         int num = 0;
         int indexToPick = 0, consIndex = 0;
 
@@ -57,7 +58,7 @@ public class BluejackDemo {
 
             System.out.println("Player's turn! You picked a card from game deck.");
             drawToBoard(playerBoard, bjcards.getGameDeck(), 0, consIndex);
-            System.out.println("You drew:" ); //TODO
+            System.out.println("You drew:" + playerBoard[consIndex]);
             consIndex++;
 
             System.out.println("computer hand: " + "X X X X");
@@ -74,10 +75,6 @@ public class BluejackDemo {
             switch (choice) {
                 case 1:
                     System.out.println("Player chose to stand.");
-                    // TODO:computer must play
-                    playerSum = calculateBoardSum(playerBoard);
-                    computerSum = calculateBoardSum(computerBoard);
-                    //TODO: compare the sums
                     System.out.println("Wait for the computer's move");
                     break;
                 case 2:
@@ -98,32 +95,29 @@ public class BluejackDemo {
             }
 
             System.out.println("It's computer's turn!");
+            drawToBoard(computerBoard, computerHand, indexToPick, 0);
+            String suitableCard = findSuitableCard(computerHand, 20-calculateBoardSum(computerBoard), computerBoard);
+            System.out.println("Computer drew:" + computerBoard[consIndex-1]);
             while (calculateBoardSum(computerBoard) < 20) {
-                String suitableCard = findSuitableCard(computerHand, calculateBoardSum(computerBoard), computerBoard);
                 if (suitableCard != null) {
-                    drawToBoard(computerBoard, computerHand, indexToPick, 0);
                     System.out.println("Computer played: " + suitableCard + " and stand");
-                }else if(calculateBoardSum(computerBoard)>20){
+                }
+                if (  suitableCard == null && calculateBoardSum(computerBoard) > 20) {
                     System.out.println("Computer busts!");
-                    break;
-                } else {
-                    drawToBoard(computerBoard, bjcards.getGameDeck(), 0, consIndex);
-                    System.out.println("Computer drew:"); //TODO add the card
+                }
+                if (suitableCard == null && calculateBoardSum(computerBoard) <= 20) {
                     System.out.println("Computer picked a card from game deck and chose to end its turn.");
-                    break;
                 }
             }
+            winner(playerSum, computerSum, bjScorePlayer, bjScoreComputer, normalScorePlayer, normalScoreComputer,playerBoard,computerBoard);
+
         }
 
-
-        winner(playerSum, computerSum, bjScorePlayer,bjScoreComputer,normalScorePlayer, normalScoreComputer);
-
-        GameHistory[] gameHistory = new GameHistory[MAX_HISTORY_SIZE];
-        int historyIndex = 0;
-        winner(playerSum, computerSum, bjScorePlayer,bjScoreComputer,normalScorePlayer, normalScoreComputer);
-        GameHistory currentGame = new GameHistory("Player", "Computer", (playerSum > computerSum) ? "Player" : "Computer");
-        gameHistory[historyIndex] = currentGame;
-        historyIndex = (historyIndex + 1) % MAX_HISTORY_SIZE;
+//        GameHistory[] gameHistory = new GameHistory[MAX_HISTORY_SIZE];
+//        int historyIndex = 0;
+//        GameHistory currentGame = new GameHistory("Player", "Computer", (playerSum > computerSum) ? "Player" : "Computer");
+//        gameHistory[historyIndex] = currentGame;
+//        historyIndex = (historyIndex + 1) % MAX_HISTORY_SIZE;
     }
 
     public static void drawToBoard(String[] board, String[] deck, int indexToPick, int consIndex) {
@@ -145,7 +139,7 @@ public class BluejackDemo {
                 deck[consIndex] = null;
             }
         }
-        if (consIndex == 0) {
+        else{
             if (indexToPick > deck.length) {
                 System.out.println("Invalid index.");
                 System.exit(indexToPick);
@@ -164,7 +158,11 @@ public class BluejackDemo {
             }
         }
     }
+    public static void handToBoard(String[] board, String[] deck, int indexToPick, int consIndex) {
 
+
+
+    }
     public static int calculateBoardSum(String[] board) {
         int sum = 0;
 
@@ -180,13 +178,12 @@ public class BluejackDemo {
 
     public static String findSuitableCard(String[] hand, int targetSum, String[] board) {
         int maxDifference = Integer.MAX_VALUE;
-        String bestCard = null;
+        String bestCard = "";
 
         for (String card : hand) {
             if (card != null) {
                 String[] parts = card.split(" ");
-                int cardValue = Integer.parseInt(parts[parts.length - 1]);
-                int currentSum = calculateBoardSum(new String[]{card}) + calculateBoardSum(board);
+                int currentSum = Integer.parseInt(parts[parts.length - 1]) + (20-targetSum);
                 int difference = targetSum - currentSum;
 
 
@@ -199,7 +196,8 @@ public class BluejackDemo {
         return bestCard;
     }
 
-    private static void winner(int playerSum, int computerSum, int bjScorePlayer, int bjScoreComputer,int normalScorePlayer, int normalScoreComputer) {
+    private static void winner(int playerSum, int computerSum, int bjScorePlayer, int bjScoreComputer, int normalScorePlayer, int normalScoreComputer,
+        String[] playerBoard,String [] computerBoard) {
         if (playerSum > 20) {
             System.out.println("Player busts! Computer wins this set!");
             normalScoreComputer++;
@@ -217,7 +215,14 @@ public class BluejackDemo {
                 System.out.println("This set is a tie!");
             }
         }
+
+    //TODO: blue points kontrolu her iki oyuncu icin yapilmali
+
+
     }
+
+
+
     public static int getIntInput(Scanner sc) {
         while (true) {
             if (sc.hasNextInt()) {
