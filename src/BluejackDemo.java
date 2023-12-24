@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 
 public class BluejackDemo {
     public static void main(String[] args) {
@@ -46,7 +46,15 @@ public class BluejackDemo {
             playerHand[i] = humandeck[i];
         }
 
-        while (scores.getNormalScorePlayer()!= 3 && scores.getNormalScoreComputer()!= 3 && scores.getBjScorePlayer()!=1 && scores.getBjScoreComputer()!=1){
+        while (scores.getNormalScorePlayer()!= 3 && scores.getNormalScoreComputer()!= 3){
+
+            for(int i=0;i<playerBoard.length;i++){
+                playerBoard[i]=null;
+            }
+            for(int i=0;i<computerBoard.length;i++){
+                computerBoard[i]=null;
+            }
+
 
             System.out.println("computer hand: " + "X X X X");
             System.out.println("computer board: " + Arrays.toString(computerBoard));
@@ -80,10 +88,6 @@ public class BluejackDemo {
                     System.out.println("Your hand: " + Arrays.toString(playerHand));
                     System.out.println("Enter the index of the card you want to play: ");
                     int cardIndex = getIntInput(sc);
-                    while (cardIndex <= 0 || cardIndex >= playerHand.length || playerHand[cardIndex] == null) {
-                        System.out.println("Invalid card index. Please try again: ");
-                        cardIndex = sc.nextInt();
-                    }
                     System.out.println("Player played: " + playerHand[cardIndex - 1]);
                     handToBoard(playerHand, playerBoard, cardIndex-1);
                     break;
@@ -125,14 +129,14 @@ public class BluejackDemo {
 
             winner(playerSum, computerSum, playerBoard, computerBoard,scores);
 
-            String winner = (playerSum > computerSum) ? "Player" : "Computer";
-            GameHistory currentGame = new GameHistory("Player", "Computer", winner);
-            gameHistory[historyIndex] = currentGame;
-            historyIndex = (historyIndex + 1) % MAX_HISTORY_SIZE;
-
-            saveGameHistory();
 
         }
+        String winner = (playerSum > computerSum) ? "Player" : "Computer";
+        GameHistory currentGame = new GameHistory("Player", "Computer", winner);
+        gameHistory[historyIndex] = currentGame;
+        historyIndex = (historyIndex + 1) % MAX_HISTORY_SIZE;
+
+        saveGameHistory();
     }
 
     public static void handToBoard(String[] userHand, String[] userBoard, int handIndex) {
@@ -152,7 +156,6 @@ public class BluejackDemo {
         userHand[handIndex] = null;
     }
 
-    //TODO after this method call increment hand index of relevant user's
     public static void deckToBoard(String[] gameDeck, String[] userBoard, int gameDeckIndex) {
         if (gameDeckIndex >= gameDeck.length) {
             System.out.println("Invalid index.");
@@ -174,25 +177,11 @@ public class BluejackDemo {
     public static int calculateBoardSum(String[] board,Score scores) {
         Scanner sc=new Scanner(System.in);
         int sum = 0;
-        boolean allBlue=true;
         for (String card : board) {
             if (card != null) {
                 String[] parts = card.split(" ");
-                if(!parts[0].equals("blue")){
-                   allBlue=false;
-                }
                 int numericValue = Integer.parseInt(parts[parts.length - 1]);
                 sum += numericValue;
-            }
-        }
-        if(allBlue){ //TODO computer or player?
-            System.out.println("Who is playing 1.computer or 2.player?");
-            int choice=getIntInput(sc);
-            if(choice==1) {
-                scores.setBjScoreComputer(scores.getBjScoreComputer() + 1);
-            }
-            else if(choice==2){
-                scores.setBjScorePlayer(scores.getBjScorePlayer() + 1);
             }
         }
         return sum;
@@ -274,5 +263,5 @@ public class BluejackDemo {
             }
         }
     }
-}
+    }
 
